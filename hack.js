@@ -4,6 +4,7 @@ const tbody = document.getElementById("blocklist-domains");
 // Array zum Speichern der URLs
 const blockedUrls = [];
 const chunkedArrays = [];
+const URLS_PER_ARRAY = 10; // Anpassbare Anzahl von URLs pro Array
 
 // Überprüfe, ob das tbody-Element existiert
 if (tbody) {
@@ -33,25 +34,9 @@ if (tbody) {
     }
   }
 
-  // Teile die URLs in Arrays mit maximal 100 Zeichen
-  let currentArray = [];
-  let currentLength = 0;
-
-  blockedUrls.forEach((url) => {
-    const urlLength = url.length + 3; // +3 für Anführungszeichen und Komma
-    if (currentLength + urlLength <= 100) {
-      currentArray.push(url);
-      currentLength += urlLength;
-    } else {
-      chunkedArrays.push(currentArray);
-      currentArray = [url];
-      currentLength = urlLength;
-    }
-  });
-
-  // Füge das letzte Array hinzu, wenn es Einträge enthält
-  if (currentArray.length > 0) {
-    chunkedArrays.push(currentArray);
+  // Teile die URLs in Arrays mit jeweils URLS_PER_ARRAY Einträgen
+  for (let i = 0; i < blockedUrls.length; i += URLS_PER_ARRAY) {
+    chunkedArrays.push(blockedUrls.slice(i, i + URLS_PER_ARRAY));
   }
 
   console.log("Blockierte URLs:", blockedUrls);
@@ -73,25 +58,23 @@ if (tbody) {
 
     // Füge die Funktionalität zum Einfügen der URLs hinzu
     content += `
-        
-        function processBlockedUrls() {
+function processBlockedUrls() {
     urlArrays.forEach((urlArray, arrayIndex) => {
         urlArray.forEach((url, index) => {
-                const input = document.getElementById("block-domain");
-                const button = document.getElementById("add-comain");
-                
-                if (input && button) {
-                    input.value = url;
-                    button.click();
-                    console.log(\`Added URL \${index + 1} from array \${arrayIndex + 1}: \${url}\`);
-                }
+            const input = document.getElementById("block-domain");
+            const button = document.getElementById("add-comain");
+            
+            if (input && button) {
+                input.value = url;
+                button.click();
+                console.log(\`Added URL \${index + 1} from array \${arrayIndex + 1}: \${url}\`);
+            }
         });
     });
 }
 
 // Starte den Prozess
 processBlockedUrls();
-
 `;
 
     const blob = new Blob([content], { type: "text/plain" });
