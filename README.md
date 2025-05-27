@@ -13,3 +13,31 @@ Wie man die Anzahl an URLs die herausgeholt wurden sind, um zu überprüfen, das
 const totalUrls = urlArrays.reduce((sum, subArray) => sum + subArray.length, 0);
 console.log("Gesamtzahl der URLs:", totalUrls);
 ```
+
+Zum Überprüfen ob sich eine URL bereits in unserer Liste sich befindet kann folgendes gemacht werden:
+
+```javascript
+
+const urls = [
+    ["01net.com", "1.ivesoccer.sx", "1001spiele.de", "11freunde.de", "1flix.to", "1v1.lol", "2048game.com", "20min.ch", "20minutes.fr", "3dvf.com"],
+    ["3fach.ch", "4-4-2.com", "6abc.com", "90min.com", "90min.de", "9news.com.au", "9to5mac.com", "a16z.com", "aa.com.tr", "aarauer-nachrichten.ch"],
+];
+
+function urlExists(urlToCheck) {
+    for (let i = 0; i < urls.length; i++) {
+        if (urls[i].includes(urlToCheck)) {
+            return true; // URL gefunden
+        }
+    }
+    return false; // URL nicht gefunden
+}
+
+// Beispielaufruf
+const urlToCheck = "srf.de";
+if (urlExists(urlToCheck)) {
+    console.log(`${urlToCheck} ist im Array vorhanden.`);
+} else {
+    console.log(`${urlToCheck} ist im Array nicht vorhanden.`);
+}
+
+```
