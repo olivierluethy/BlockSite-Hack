@@ -1,0 +1,57 @@
+// Array 1 Point
+const array1 = [];
+// Array 2 Point
+const array2 = [];
+
+const input = document.getElementById("block-domain");
+const button = document.getElementById("add-domain");
+
+// Optimierte Version mit Set
+function findUniqueURLs(arr1, arr2) {
+    const flatArray1 = arr1.flat();
+    const flatArray2 = arr2.flat();
+    
+    const setArray2 = new Set(flatArray2);
+    const setArray1 = new Set(flatArray1);
+    
+    const uniqueToArray1 = flatArray1.filter(url => !setArray2.has(url));
+    const uniqueToArray2 = flatArray2.filter(url => !setArray1.has(url));
+    
+    return {
+        uniqueToArray1,
+        uniqueToArray2
+    };
+}
+
+// Funktion aufrufen
+const { uniqueToArray1, uniqueToArray2 } = findUniqueURLs(array1, array2);
+// console.log("URLs in array1, aber nicht in array2:", uniqueToArray1);
+// console.log("URLs in array2, aber nicht in array1:", uniqueToArray2);
+
+// Funktion zum Eingeben und Klicken
+function processUrls(arrayIndex = 0, urlIndex = 0) {
+    // Prüfen, ob alle Arrays und URLs verarbeitet wurden
+    if (arrayIndex >= array2.length) {
+        console.log("Alle URLs wurden verarbeitet");
+        return;
+    }
+
+    // Prüfen, ob das aktuelle Unterarray URLs enthält
+    if (urlIndex >= array2[arrayIndex].length) {
+        // Zum nächsten Unterarray wechseln
+        processUrls(arrayIndex + 1, 0);
+        return;
+    }
+
+    // Input-Feld leeren und neuen Wert setzen
+    input.value = array2[arrayIndex][urlIndex];
+    
+    // Button klicken
+    button.click();
+    
+    // Nächste URL im aktuellen Unterarray oder nächstes Unterarray verarbeiten
+    processUrls(arrayIndex, urlIndex + 1);
+}
+
+// Skript starten
+processUrls();
