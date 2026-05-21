@@ -155,7 +155,7 @@ const urls = [
     ["wset.com","wsj.com","wsws.org","wto.org","wtop.com","wtov9.com","wusa9.com","ww1.m4uhd.tv","ww1.streamm4u.ws","wwd.com"],
     ["www1.wdr.de","www2.movieorca.com","www3.nhk.or.jp","www3.zoechip.com","wz.de","x.com","xboxdynasty.de","xcatalunya.cat","xperttimes.com","yahoo.com"],
     ["yardbarker.com","yle.fi","yohoho.io","yop.l-frii.com","yourstory.com","youtube.com","yts.mx","zamin.uz","zdf.de","zdfheute.de"],
-    ["zdnet.com","zeit.de","zenit.org","zentralplus.ch","zhurnal.mk","zofingertagblatt.ch","zombsroyale.io","zonebourse.com","zuerich24.ch","zvw.de"]
+    ["zdnet.com","zeit.de","zenit.org","zentralplus.ch","zhurnal.mk","zofingertagblatt.ch","zombsroyale.io","zonebourse.com","zuerich24.ch","zvw.de", "bote.ch"]
 ];
 
 // Funktion zum Eingeben und Klicken
