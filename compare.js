@@ -1,25 +1,32 @@
-const array1 = [];
+// Root-Liste: der eine Rechner, mit dem alle anderen verglichen werden.
+const root = [];
 
-const array2 = [];
+// Alle anderen Listen (z. B. die zwei weiteren Rechner), die man loswerden
+// möchte. Beliebig viele Listen möglich.
+const otherLists = [
+    [],
+    [],
+];
 
-// Optimierte Version mit Set
-function findUniqueURLs(arr1, arr2) {
-    const flatArray1 = arr1.flat();
-    const flatArray2 = arr2.flat();
-    
-    const setArray2 = new Set(flatArray2);
-    const setArray1 = new Set(flatArray1);
-    
-    const uniqueToArray1 = flatArray1.filter(url => !setArray2.has(url));
-    const uniqueToArray2 = flatArray2.filter(url => !setArray1.has(url));
-    
-    return {
-        uniqueToArray1,
-        uniqueToArray2
-    };
+// Ermittelt alle URLs, die in mindestens einer der anderen Listen vorkommen,
+// aber im root fehlen. Jede fehlende URL wird nur EINMAL zurückgegeben, auch
+// wenn sie in mehreren der anderen Listen vorkommt (Deduplizierung via Set).
+function findMissingFromRoot(root, otherLists) {
+    const rootSet = new Set(root.flat());
+
+    const missing = new Set();
+    for (const list of otherLists) {
+        for (const url of list.flat()) {
+            if (!rootSet.has(url)) {
+                missing.add(url);
+            }
+        }
+    }
+
+    return [...missing];
 }
 
 // Funktion aufrufen
-const { uniqueToArray1, uniqueToArray2 } = findUniqueURLs(array1, array2);
-console.log("URLs in array1, aber nicht in array2:", uniqueToArray1);
-console.log("URLs in array2, aber nicht in array1:", uniqueToArray2);
+const missingInRoot = findMissingFromRoot(root, otherLists);
+console.log("URLs, die im root fehlen (nur einmal angezeigt):", missingInRoot);
+console.log("Anzahl fehlender URLs:", missingInRoot.length);
